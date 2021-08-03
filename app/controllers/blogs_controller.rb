@@ -15,10 +15,12 @@ class BlogsController < ApplicationController
   end
 
   def create
-    blog = Blog.new(blog_params)
-    blog.save
-    redirect_to blogs_path(blog.id)
-  end
+    @blog = Blog.new(blog_params)
+    if @blog.save
+     redirect_to blogs_path(blog.id)
+    else
+     render :new
+    end
 
   def edit
     @blog = Blog.find(params[:id])
